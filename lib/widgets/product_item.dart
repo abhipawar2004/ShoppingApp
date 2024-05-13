@@ -28,13 +28,13 @@ class ProductItem extends StatelessWidget {
             onPressed: () {
               product.toggleFavoriteStatus();
             },
-            icon: Icon(product.isFavorite ? Icons.favorite:Icons.favorite_border_outlined, color: Colors.red),
+            icon: Icon(product.isFavorite ? Icons.favorite:Icons.favorite_border_outlined, color: Color.fromARGB(255, 239, 34, 20),),
           ),
           backgroundColor: Colors.black87,
           title: Text(product.title, textAlign: TextAlign.center),
           trailing: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.shopping_cart_outlined, color: Colors.red),
+            icon: Icon(Icons.shopping_cart_outlined, color:  Color.fromARGB(255, 239, 34, 20)),
           ),
         ),
       ),
