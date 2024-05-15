@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'product.dart';
 
-
 class Products with ChangeNotifier {
-   final List<Product> _items = [
-     Product(
+  final List<Product> _items = [
+    Product(
       id: 'p1',
       title: 'Dress',
       description: 'A white dress - it is pretty white!',
       price: 3280,
-      imageUrl:'https://cdn.pixabay.com/photo/2016/11/11/18/42/business-1817472_1280.jpg',
+      imageUrl:
+          'https://cdn.pixabay.com/photo/2016/11/11/18/42/business-1817472_1280.jpg',
     ),
     Product(
       id: 'p2',
@@ -41,10 +41,13 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
-  Product findById(String id){
+  Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
+  List<Product> get FavoriteItems {
+    return _items.where((prodItems) => prodItems.isFavorite).toList();
+  }
 
   void addProducts() {
     // _items.add(value)

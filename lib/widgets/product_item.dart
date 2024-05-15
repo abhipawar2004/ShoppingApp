@@ -26,7 +26,7 @@ class ProductItem extends StatelessWidget {
             child: Image.network(product.imageUrl, fit: BoxFit.cover)),
         footer: GridTileBar(
           leading: Consumer<Product>(
-            builder: (context, value, _) => IconButton(
+            builder: (context, value, _ ) => IconButton(
               onPressed: () {
                 product.toggleFavoriteStatus();
               },
@@ -43,7 +43,8 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             onPressed: () {},
             icon: Icon(Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 239, 34, 20)),
+                color: Color.fromARGB(255, 239, 34, 20),
+                ),
           ),
         ),
       ),
