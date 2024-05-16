@@ -10,9 +10,9 @@ class CartItems {
 }
 
 class Cart with ChangeNotifier {
-  late Map<String, CartItems> _items;
+   Map<String, CartItems> _items={};
 
-  Map<String, CartItems> get _items {
+  Map<String, CartItems> get items {
     return {..._items};
   }
   void addItems(String productId, double price, String title)
@@ -22,8 +22,6 @@ class Cart with ChangeNotifier {
     }else{
         //
     }
-
-
 
   }
 }
