@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_learn/provider/cart.dart';
 
 import '../widgets/product_grid.dart';
 
@@ -20,7 +22,6 @@ class _ProductsOverviewState extends State<ProductsOverview> {
         primary: true,
         title: Text('APNI DUKAN',
             style: TextStyle(fontFamily: 'Lato', color: Colors.white)),
-        centerTitle: true,
         actions: [
           PopupMenuButton(
               icon: Icon(Icons.more_vert),
@@ -45,6 +46,15 @@ class _ProductsOverviewState extends State<ProductsOverview> {
                       value: FilterOption.All,
                     )
                   ]),
+          Consumer<Cart>(
+            builder: (_, cart, child) => Badge.count(count: cart.CountItem,child: child),
+           child: IconButton(
+                icon: Icon(Icons.shopping_cart), 
+                onPressed: () {},
+          ),
+            ),
+            
+          
         ],
       ),
       body: ProductGrid(_showOnlyFavorite),
