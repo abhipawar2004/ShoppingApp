@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: CaartScreen(),
+        home: ProductsOverview(),
         routes: {
           ProductDetailScreen.routename:(context) => ProductDetailScreen(),
           CaartScreen.routeName:(context) => CaartScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_learn/provider/cart.dart';
+import './cart_screen.dart';
 
 import '../widgets/product_grid.dart';
 
@@ -47,14 +48,15 @@ class _ProductsOverviewState extends State<ProductsOverview> {
                     )
                   ]),
           Consumer<Cart>(
-            builder: (_, cart, child) => Badge.count(count: cart.CountItem,child: child),
-           child: IconButton(
-                icon: Icon(Icons.shopping_cart), 
-                onPressed: () {},
-          ),
+            builder: (_, cart, child) =>
+                Badge.count(count: cart.CountItem, child: child),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CaartScreen.routeName);
+              },
             ),
-            
-          
+          ),
         ],
       ),
       body: ProductGrid(_showOnlyFavorite),
