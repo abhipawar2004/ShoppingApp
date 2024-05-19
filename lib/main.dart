@@ -5,6 +5,7 @@ import 'package:shopping_learn/provider/cart.dart';
 import 'package:shopping_learn/screens/product_detail.dart';
 import 'package:shopping_learn/screens/products_overview.dart';
 import 'provider/products.dart';
+import './screens/cart_screen.dart';
 
 void main() {
   runApp( MyApp());
@@ -27,9 +28,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: ProductsOverview(),
+        home: CaartScreen(),
         routes: {
           ProductDetailScreen.routename:(context) => ProductDetailScreen(),
+          CaartScreen.routeName:(context) => CaartScreen(),
         },
       ),
     );
