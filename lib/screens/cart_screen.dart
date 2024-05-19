@@ -26,17 +26,26 @@ class CaartScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  SizedBox(width: 10),
+                  Spacer(),
                   Chip(
-                    label: Text(
-                      cart.TotalAmount.toString(),
-                    ),
+                    label: Text('\$${cart.TotalAmount}',
+                        style: TextStyle(color: Colors.white)),
                     backgroundColor: Color.fromARGB(255, 231, 191, 48),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'ORDER NOW',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 231, 191, 48),
+                      ),
+                    ),
                   ),
                 ],
               ),
