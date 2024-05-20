@@ -1,4 +1,4 @@
-// import 'package:provider/provider.dart';
+
 import 'package:flutter/foundation.dart';
 
 class CartItems {
@@ -32,6 +32,11 @@ class Cart with ChangeNotifier {
     return total;
   }
 
+  void removeItem(String productId) {
+    _items.remove(productId);
+    notifyListeners();
+  }
+
   void addItems(String productId, double price, String title) {
     if (_items.containsKey(productId)) {
       _items.update(
@@ -39,8 +44,8 @@ class Cart with ChangeNotifier {
           (existingItems) => CartItems(
               id: existingItems.id,
               title: existingItems.title,
-              quantity: existingItems.quantity,
-              price: existingItems.price + 1));
+              price: existingItems.price,
+              quantity: existingItems.quantity + 1));
     } else {
       _items.putIfAbsent(
         productId,
