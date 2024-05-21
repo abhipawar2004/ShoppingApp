@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_learn/provider/cart.dart';
 
-import 'package:shopping_learn/screens/product_detail.dart';
-import 'package:shopping_learn/screens/products_overview.dart';
-import 'provider/products.dart';
+import './screens/product_detail.dart';
+import './screens/products_overview.dart';
+import './provider/products.dart';
 import './screens/cart_screen.dart';
+import './provider/cart.dart';
+import './provider/order.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,21 +18,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-      create: (context) => Products(),),
-      ChangeNotifierProvider(create: (context) => Cart()),
-      
-    ],
-      
-    
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Orders(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         home: ProductsOverview(),
         routes: {
-          ProductDetailScreen.routename:(context) => ProductDetailScreen(),
-          CaartScreen.routeName:(context) => CaartScreen(),
+          ProductDetailScreen.routename: (context) => ProductDetailScreen(),
+          CaartScreen.routeName: (context) => CaartScreen(),
         },
       ),
     );
