@@ -53,7 +53,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                Navigator.of(context).pushNamed(CaartScreen.routeName);
+                Navigator.of(context).pushNamed(CartScreen.routeName);
               },
             ),
           ),
