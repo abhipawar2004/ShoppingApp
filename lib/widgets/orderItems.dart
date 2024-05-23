@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
 
 import '../provider/order.dart' as ord;
@@ -24,7 +27,7 @@ class _OrderItemsState extends State<OrderItems> {
             subtitle: Text(
                 DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime)),
             trailing: IconButton(
-              icon: Icon(_expanded ? Icons.expand_less: Icons.expand_more),
+              icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {
                 setState(() {
                   _expanded = !_expanded;
@@ -32,6 +35,22 @@ class _OrderItemsState extends State<OrderItems> {
               },
             ),
           ),
+          if (_expanded)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 18,vertical: 10),
+              height: min(widget.order.products.length * 20.0 + 50, 180),
+              child: ListView(
+                children: widget.order.products.map(
+                  (prod) => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(prod.title,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                      Text('${prod.quantity}x \$${prod.price}',style: TextStyle(fontSize: 15,color: Colors.grey),),
+                    ],
+                  ),
+                ).toList(), 
+              ),
+            ),
         ],
       ),
     );
