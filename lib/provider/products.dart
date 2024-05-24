@@ -14,7 +14,7 @@ class Products with ChangeNotifier {
     ),
     Product(
       id: 'p2',
-      title: 'footwears',
+      title: 'Footwears',
       description: 'A designing women footwear.',
       price: 1290,
       imageUrl:
@@ -30,7 +30,7 @@ class Products with ChangeNotifier {
     ),
     Product(
         id: 'p4',
-        title: 'T-shirt',
+        title: 'T-shirts',
         description: 'A nice pair of T-shirt.',
         price: 450,
         imageUrl:
