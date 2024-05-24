@@ -14,7 +14,6 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
 
@@ -46,6 +45,16 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             onPressed: () {
               cart.addItems(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Added items to the cart!'),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(label: 'undo', onPressed: () {
+                    
+                  },),
+                ),
+              );
             },
             icon: Icon(
               Icons.shopping_cart_outlined,
