@@ -20,7 +20,6 @@ class _ProductsOverviewState extends State<ProductsOverview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 231, 191, 48),
         primary: true,
         title: Text('APNI DUKAN',
             style: TextStyle(fontFamily: 'Lato', color: Colors.white)),

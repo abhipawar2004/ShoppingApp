@@ -30,8 +30,7 @@ class CartItems extends StatelessWidget {
         return showDialog(context: context, builder:(context) => AlertDialog(
           elevation: 5,
           title: Text('Are you sure?',style: TextStyle(fontWeight: FontWeight.bold),),
-          content: Text('Do you want to remove items from this cart?'
-          ),
+          content: Text('Do you want to remove items from this cart?'),
           actions: [
             TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text('No',style: TextStyle(color: Color.fromARGB(255, 231, 191, 48)),),),
             TextButton(onPressed: () => Navigator.of(context).pop(true), child: Text('Yes',style: TextStyle(color: Colors.red)),),

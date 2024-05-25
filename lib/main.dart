@@ -8,6 +8,7 @@ import './screens/cart_screen.dart';
 import './provider/cart.dart';
 import './provider/order.dart';
 import './screens/order_screen.dart';
+import './screens/user_product_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,12 +34,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(appBarTheme: AppBarTheme(color: Color.fromARGB(255, 231, 191, 48),),),
         title: 'Flutter Demo',
         home: ProductsOverview(),
         routes: {
           ProductDetailScreen.routename: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           OrderScreen.routeName: (context) => OrderScreen(),
+          UserProductScreen.routeName:(context) => UserProductScreen(),
         },
       ),
     );
