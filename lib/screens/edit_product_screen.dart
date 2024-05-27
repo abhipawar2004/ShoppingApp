@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../provider/product.dart';
+import '../provider/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
@@ -37,12 +39,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
       final text = _imageurlController.text;
-      if ((!text.startsWith('http') && !text.startsWith('https')) ||
-          (!text.endsWith('.jpg') && !text.endsWith('.jpeg') && !text.endsWith('.png'))) {
+      if ((!text.startsWith('http') && !text.startsWith('https'))) {}
+      {
         return;
       }
-      setState(() {});
     }
+    setState(() {});
   }
 
   void _saveForm() {
@@ -51,17 +53,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState?.save();
-    print(_editedProduct.title);
-    print(_editedProduct.id);
-    print(_editedProduct.imageUrl);
-    print(_editedProduct.description);
+    Provider.of<Products>(context, listen: false).addProducts(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: const Text('Edit Product'),
         actions: [
           IconButton(
             onPressed: _saveForm,
@@ -183,15 +183,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       validator: (newValue) {
                         if (newValue == null || newValue.isEmpty) {
                           return 'Please enter an image URL!';
-                        }
-                        if (!newValue.startsWith('http') &&
-                            !newValue.startsWith('https')) {
-                          return 'Please enter a valid URL';
-                        }
-                        if (!newValue.endsWith('.jpg') &&
-                            !newValue.endsWith('.jpeg') &&
-                            !newValue.endsWith('.png')) {
-                          return 'Please enter a valid URL';
                         }
                         return null;
                       },
