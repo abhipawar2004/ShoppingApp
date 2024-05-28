@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../screens/edit_product_screen.dart';
+
 class UserProductItems extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
-  UserProductItems(this.title, this.imageUrl);
+  UserProductItems(this.id,this.title, this.imageUrl);
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -13,15 +16,17 @@ class UserProductItems extends StatelessWidget {
       ),
       trailing: Container(
         width: 100,
-        child: Row(
-          children: [
+        child: Row(children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(EditProductScreen.routeName, arguments: id);
+            },
             icon: Icon(Icons.edit),
           ),
-           IconButton(
+          IconButton(
             onPressed: () {},
-            icon: Icon(Icons.delete,color:Colors.red),
+            icon: Icon(Icons.delete, color: Colors.red),
           ),
         ]),
       ),
