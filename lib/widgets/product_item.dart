@@ -36,11 +36,11 @@ class ProductItem extends StatelessWidget {
                 product.isFavorite
                     ? Icons.favorite
                     : Icons.favorite_border_outlined,
-                color: Color.fromARGB(255, 239, 34, 20),
+                color: Colors.blueAccent,
               ),
             ),
           ),
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.black54,
           title: Text(product.title, textAlign: TextAlign.center),
           trailing: IconButton(
             onPressed: () {
@@ -48,6 +48,7 @@ class ProductItem extends StatelessWidget {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
+                  
                   content: Text('Added items to the cart!'),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
@@ -62,7 +63,7 @@ class ProductItem extends StatelessWidget {
             },
             icon: Icon(
               Icons.shopping_cart_outlined,
-              color: Color.fromARGB(255, 239, 34, 20),
+              color: Colors.blueAccent,
             ),
           ),
         ),

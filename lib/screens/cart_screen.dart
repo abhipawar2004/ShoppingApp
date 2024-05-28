@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
                   Chip(
                     label: Text('\$${cart.TotalAmount}',
                         style: TextStyle(color: Colors.white)),
-                    backgroundColor: Color.fromARGB(255, 231, 191, 48),
+                    backgroundColor: Color(0xff2660a4),
                   ),
                   TextButton(
                     onPressed: () {
@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                     child: Text(
                       'ORDER NOW',
                       style: TextStyle(
-                        color: Color.fromARGB(255, 231, 191, 48),
+                        color: Color(0xff2660a4),
                       ),
                     ),
                   ),

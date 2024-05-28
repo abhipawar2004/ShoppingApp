@@ -38,7 +38,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context)!.settings.arguments as String;
+      final productId = ModalRoute.of(context)!.settings.arguments as String?;
       if (productId != null) {
         _editedProduct =
             Provider.of<Products>(context, listen: false).findById(productId);
@@ -46,9 +46,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'title': _editedProduct.title,
           'description': _editedProduct.description,
           'price': _editedProduct.price.toString(),
-           'imageUrl': '',
+          'imageUrl': '',
         };
-        _imageurlController.text = (_editedProduct..imageUrl) as String;
+        _imageurlController.text = _editedProduct.imageUrl;
       }
     }
     _isInit = false;
@@ -82,7 +82,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState?.save();
-    Provider.of<Products>(context, listen: false).addProducts(_editedProduct);
+    // ignore: unnecessary_null_comparison
+    if (_editedProduct.id != null) {
+      Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.id,_editedProduct);
+    } else {
+      Provider.of<Products>(context, listen: false).addProducts(_editedProduct);
+    }
     Navigator.of(context).pop();
   }
 
@@ -122,10 +127,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onSaved: (newValue) {
                   _editedProduct = Product(
                       id: _editedProduct.id,
-                      title: newValue!,
+                      title: _editedProduct.title,
                       description: _editedProduct.description,
                       price: _editedProduct.price,
-                      imageUrl: _editedProduct.imageUrl);
+                      imageUrl: _editedProduct.imageUrl,
+                      isFavorite: _editedProduct.isFavorite
+                      );
                 },
               ),
               TextFormField(
@@ -157,7 +164,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       title: _editedProduct.title,
                       description: _editedProduct.description,
                       price: double.parse(newValue!),
-                      imageUrl: _editedProduct.imageUrl);
+                      imageUrl: _editedProduct.imageUrl,
+                      isFavorite: _editedProduct.isFavorite);
                 },
               ),
               TextFormField(
@@ -183,7 +191,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       title: _editedProduct.title,
                       description: newValue!,
                       price: _editedProduct.price,
-                      imageUrl: _editedProduct.imageUrl);
+                      imageUrl: _editedProduct.imageUrl,
+                      isFavorite: _editedProduct.isFavorite);
                 },
               ),
               Row(
@@ -225,7 +234,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             title: _editedProduct.title,
                             description: _editedProduct.description,
                             price: _editedProduct.price,
-                            imageUrl: newValue!);
+                            imageUrl: newValue!,
+                            isFavorite: _editedProduct.isFavorite);
                       },
                     ),
                   ),

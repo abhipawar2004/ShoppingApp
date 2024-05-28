@@ -86,6 +86,14 @@ flutter:
         - asset: fonts/Lato-Bold.ttf
         - asset: fonts/Lato-Regular.ttf
           weight: 700
+
+    - family: ScreenDetail
+      fonts:
+        - asset: fonts/ScreenDetail.ttf  
+         
+    - family: Detail
+      fonts:
+        - asset: fonts/Detail.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

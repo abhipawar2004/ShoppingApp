@@ -23,13 +23,21 @@ class ProductDetailScreen extends StatelessWidget {
               child: Image(image:NetworkImage(loadedProduct.imageUrl),fit: BoxFit.cover,),
             ),
             SizedBox(height: 10),
-            Text('\$${loadedProduct.price}',style: 
-            TextStyle(color: Colors.grey,fontSize: 20),),
-            SizedBox(height: 10),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(loadedProduct.description,textAlign: TextAlign.center,
+              color: Color(0xff2660a4),
+              child: Text('Price - \$${loadedProduct.price}',textAlign: TextAlign.center,style: 
+            TextStyle(fontSize: 20,color: Colors.white),),
+            ),
+            
+            SizedBox(height: 10),
+
+            Card(
+              margin: EdgeInsets.all(15),
+              shadowColor: Color(0xff2660a4),
+              child: Text(loadedProduct.description,textAlign: TextAlign.center,style: TextStyle(
+              fontSize: 20,fontFamily: 'Detail',color: Color(0xff2660a4)
+              ),
               softWrap: true),
             ),
           ],

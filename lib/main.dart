@@ -35,15 +35,25 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(appBarTheme: AppBarTheme(color: Color.fromARGB(255, 231, 191, 48),),),
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(fontSize: 20,color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.white),
+            actionsIconTheme: IconThemeData(color: Colors.white),
+            color: Color(0xff2660a4),
+          ),
+          primaryColor: Color(
+            0xffedf7f6,
+          ),
+        ),
         title: 'Flutter Demo',
         home: ProductsOverview(),
         routes: {
           ProductDetailScreen.routename: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           OrderScreen.routeName: (context) => OrderScreen(),
-          UserProductScreen.routeName:(context) => UserProductScreen(),
-          EditProductScreen.routeName:(context) => EditProductScreen(),
+          UserProductScreen.routeName: (context) => UserProductScreen(),
+          EditProductScreen.routeName: (context) => EditProductScreen(),
         },
       ),
     );

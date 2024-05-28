@@ -12,9 +12,9 @@ class AppDrawer extends StatelessWidget {
         child: Column(
       children: [
         AppBar(
-          title: Text('Hello Friends'),
+          title: Text('Options'),
           automaticallyImplyLeading: false,
-          backgroundColor: Color.fromARGB(255, 231, 191, 48),
+          
         ),
         ListTile(
           leading: Icon(Icons.shop),
@@ -23,6 +23,7 @@ class AppDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed('/');
           },
         ),
+        Divider(),
         ListTile(
           leading: Icon(Icons.payment),
           title: Text('Payment'),
@@ -30,6 +31,7 @@ class AppDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed(OrderScreen.routeName);
           },
         ),
+        Divider(),
         ListTile(
           leading: Icon(Icons.edit),
           title: Text('Manage Product'),
@@ -37,6 +39,7 @@ class AppDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed(UserProductScreen.routeName);
           },
         ),
+        Divider(),
 
       ],
     ));

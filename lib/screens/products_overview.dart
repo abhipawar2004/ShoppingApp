@@ -19,10 +19,11 @@ class _ProductsOverviewState extends State<ProductsOverview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         primary: true,
         title: Text('APNI DUKAN',
-            style: TextStyle(fontFamily: 'Lato', color: Colors.white)),
+            ),
         actions: [
           PopupMenuButton(
               icon: Icon(Icons.more_vert),
@@ -39,7 +40,8 @@ class _ProductsOverviewState extends State<ProductsOverview> {
               },
               itemBuilder: (context) => [
                     PopupMenuItem(
-                      child: Text('Favorite Items'),
+                      child: 
+                      Text('Favorite Items'),
                       value: FilterOption.FavoriteOnly,
                     ),
                     PopupMenuItem(
