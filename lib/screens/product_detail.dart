@@ -25,14 +25,22 @@ class ProductDetailScreen extends StatelessWidget {
             SizedBox(height: 10),
             Container(
               width: double.infinity,
-              color: Color(0xff2660a4),
+              color: Colors.yellow.shade300
+              ,
               child: Text('Price - \$${loadedProduct.price}',textAlign: TextAlign.center,style: 
-            TextStyle(fontSize: 20,color: Colors.white),),
+            TextStyle(fontSize: 20,color:Color(0xff2660a4)),),
             ),
             
-            SizedBox(height: 10),
+            SizedBox(height: 25),
+            Container(
+              width: double.infinity,
+              color: Color(0xff2660a4),
+              child: Text('Description',textAlign: TextAlign.center,style: 
+            TextStyle(fontSize: 20,color:Colors.white),),
+            ),
 
             Card(
+              elevation: 25, 
               margin: EdgeInsets.all(15),
               shadowColor: Color(0xff2660a4),
               child: Text(loadedProduct.description,textAlign: TextAlign.center,style: TextStyle(
