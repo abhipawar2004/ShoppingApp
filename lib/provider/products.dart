@@ -68,6 +68,8 @@ class Products with ChangeNotifier {
         'isFavorite':product.isFavorite,
 
     }));
+
+
     final newProduct = Product(
       id: DateTime.now().toString(),
       title: product.title,
@@ -79,6 +81,7 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
+
   void updateProduct(String id, Product newProduct) {
     final prodind = _items.indexWhere((prod) => prod.id == id);
     if (prodind >= 0) {
@@ -88,6 +91,7 @@ class Products with ChangeNotifier {
       print('....');
     }
   }
+
 
   void deleteProduct(String id) {
     _items.removeWhere((prod) => prod.id == id);

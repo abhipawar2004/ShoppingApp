@@ -35,6 +35,7 @@ class CartScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.white)),
                     backgroundColor: Color(0xff2660a4),
                   ),
+                  cart.TotalAmount>0?
                   TextButton(
                     onPressed: () {
                       Provider.of<Orders>(context,listen: false).addOrders(
@@ -48,7 +49,8 @@ class CartScreen extends StatelessWidget {
                         color: Color(0xff2660a4),
                       ),
                     ),
-                  ),
+                  ):
+                  Container(),
                 ],
               ),
             ),
