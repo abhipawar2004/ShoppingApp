@@ -13,7 +13,7 @@ class ProductGrid extends StatelessWidget {
     final ProductData = Provider.of<Products>(context);
     final products = ShowFav?ProductData.FavoriteItems: ProductData.items;
 
-    if (ShowFav) {
+    if (ShowFav && products.isEmpty) {
       return Center(
         child: Text(
           'No favorite products yet!',

@@ -59,28 +59,33 @@ class Products with ChangeNotifier {
   }
 
   void addProducts(Product product) {
-    const url ='https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json';
-    http.post(Uri.parse(url), body: jsonEncode({
-        'title':product.title,
-        'description':product.description,
-        'imageUrl':product.imageUrl,
-        'price':product.price,
-        'isFavorite':product.isFavorite,
-
-    }));
-
-
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
-    );
-    _items.add(newProduct);
-    notifyListeners();
+    const url =
+        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json';
+    http
+        .post(
+      Uri.parse(url),
+      body: jsonEncode(
+        {
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite,
+        },
+      ),
+    )
+        .then((response) {
+      final newProduct = Product(
+        id: json.decode(response.body),
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+      _items.add(newProduct);
+      notifyListeners();
+    });
   }
-
 
   void updateProduct(String id, Product newProduct) {
     final prodind = _items.indexWhere((prod) => prod.id == id);
@@ -91,7 +96,6 @@ class Products with ChangeNotifier {
       print('....');
     }
   }
-
 
   void deleteProduct(String id) {
     _items.removeWhere((prod) => prod.id == id);

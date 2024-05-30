@@ -25,13 +25,22 @@ class ProductItem extends StatelessWidget {
             builder: (context, value, _) => IconButton(
               onPressed: () {
                 product.toggleFavoriteStatus();
+                
+
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                product.isFavorite?
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Item added to Favorite❤️'),
+                    content: Text('Item added to Favorite ❤️'),
                     duration: Duration(seconds: 2),
                   ),
-                );
+                ):
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Item remove to Favorite ❤️'),
+                    duration: Duration(seconds: 2),
+                  ),);
+
               },
               icon: Icon(
                 product.isFavorite
@@ -49,7 +58,7 @@ class ProductItem extends StatelessWidget {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Added items to the cart!'),
+                  content: Text('Added items to the cart 🛒'),
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'undo',

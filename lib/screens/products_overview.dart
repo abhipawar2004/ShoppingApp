@@ -25,9 +25,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
           IconButton(
             onPressed: () {
               setState(() {
-                
                 _showOnlyFavorite = !_showOnlyFavorite;
-
               });
             },
             icon: Icon(
