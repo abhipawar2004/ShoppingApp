@@ -76,7 +76,7 @@ class Products with ChangeNotifier {
     )
         .then((response) {
       final newProduct = Product(
-        id: json.decode(response.body),
+        id: json.decode(response.body)['name'],
         title: product.title,
         description: product.description,
         price: product.price,
@@ -84,6 +84,9 @@ class Products with ChangeNotifier {
       );
       _items.add(newProduct);
       notifyListeners();
+    }).catchError((error) {
+      print(error);
+      throw error;
     });
   }
 
