@@ -28,6 +28,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   };
 
   var _isInit = true;
+  var _isLoadingIndicator = false;
 
   @override
   void initState() {
@@ -52,6 +53,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       }
     }
     _isInit = false;
+
     super.didChangeDependencies();
   }
 
@@ -77,15 +79,30 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState?.save();
+    setState(() {
+      _isLoadingIndicator = true;
+    });
     if (_editedProduct.id.isEmpty) {
       // Add new product
-      Provider.of<Products>(context, listen: false).addProducts(_editedProduct);
+      Provider.of<Products>(context, listen: false)
+          .addProducts(_editedProduct)
+          .then(
+        (_) {
+          Navigator.of(context).pop();
+          setState(() {
+            _isLoadingIndicator = false;
+          });
+        },
+      );
     } else {
       // Update existing product
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
+      Navigator.of(context).pop();
+      setState(() {
+        _isLoadingIndicator = false;
+      });
     }
-    Navigator.of(context).pop();
   }
 
   @override
