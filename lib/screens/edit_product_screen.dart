@@ -73,7 +73,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final isValid = _form.currentState?.validate();
     if (isValid == null || !isValid) {
       return;
@@ -83,32 +83,31 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoadingIndicator = true;
     });
     if (_editedProduct.id.isEmpty) {
-      // Add new product
-      Provider.of<Products>(context, listen: false)
-          .addProducts(_editedProduct)
-          .catchError((error) {
-        return showDialog(
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProducts(_editedProduct);
+      } catch (error) {
+        await showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: Text('An error ocuured'),
             content: Text('Something went wrong'),
             actions: [
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child:Text('Okay'),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Okay'),
+              ),
             ],
           ),
         );
-      }).then(
-        (_) {
-          setState(() {
-            _isLoadingIndicator = false;
-          });
-          Navigator.of(context).pop();
-        },
-      );
+      } finally {
+        setState(() {
+          _isLoadingIndicator = false;
+        });
+        Navigator.of(context).pop();
+      }
     } else {
       // Update existing product
       Provider.of<Products>(context, listen: false)

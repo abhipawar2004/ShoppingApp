@@ -6,6 +6,7 @@ import './cart_screen.dart';
 
 import '../widgets/product_grid.dart';
 import '../widgets/app_drawer.dart';
+import '../provider/products.dart';
 
 class ProductsOverview extends StatefulWidget {
   @override
@@ -14,6 +15,15 @@ class ProductsOverview extends StatefulWidget {
 
 class _ProductsOverviewState extends State<ProductsOverview> {
   var _showOnlyFavorite = false;
+  var _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<Products>(context).FetchData();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
