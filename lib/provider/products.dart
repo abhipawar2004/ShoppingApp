@@ -62,8 +62,8 @@ class Products with ChangeNotifier {
     const url =
         'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json';
     try {
-      final response = http.get(url as Uri);
-      print(response);
+      final response =  await http.get(Uri.parse(url));
+      print(json.decode(response.body));
     } catch (error) {
       throw error;
     }
