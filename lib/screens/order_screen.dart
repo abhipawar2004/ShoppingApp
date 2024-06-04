@@ -16,7 +16,7 @@ class OrderScreen extends StatelessWidget {
         title: Text('Your Order'),
       ),
       drawer: AppDrawer(),
-      body: ListView.builder(
+      body:OrderData.orders.length==0? Center(child: Text('Order is empty'),):ListView.builder(
         itemCount: OrderData.orders.length,
         itemBuilder: (context, index) => OrderItems(OrderData.orders[index]),
       ),
