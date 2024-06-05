@@ -37,8 +37,8 @@ class CartScreen extends StatelessWidget {
                   ),
                   cart.TotalAmount>0?
                   TextButton(
-                    onPressed: () {
-                      Provider.of<Orders>(context,listen: false).addOrders(
+                    onPressed: () async{
+                     await   Provider.of<Orders>(context,listen: false).addOrders(
                           cart.items.values.toList(), cart.TotalAmount);
                           Navigator.of(context).pushNamed(OrderScreen.routeName);
                       cart.clear(); 
