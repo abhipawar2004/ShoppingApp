@@ -60,12 +60,15 @@ class Products with ChangeNotifier {
     return _items.where((prodItems) => prodItems.isFavorite).toList();
   }
 
-  Future<void> FetchData() async {
+  Future<void> FetchDataAndUpdate() async {
     const url =
         'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json';
     try {
       final response = await http.get(Uri.parse(url));
       final extractData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractData == null) {
+        return;
+      }
       final List<Product> loadedProduct = [];
       extractData.forEach((prodId, prodData) {
         loadedProduct.add(
