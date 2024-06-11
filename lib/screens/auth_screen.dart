@@ -1,7 +1,9 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/auth.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -96,7 +98,7 @@ class _AuthCardState extends State<AuthCard> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState != null && !_formKey.currentState!.validate()) {
       // Invalid!
       return;
@@ -107,19 +109,25 @@ class _AuthCardState extends State<AuthCard> {
     });
     if (_authMode == AuthMode.Login) {
       // Log user in
+      Provider.of<Auth>(context).Login(_authData['email']!, _authData['passsword']!);
     } else {
       // Sign user up
+      await Provider.of<Auth>(context, listen: false)
+          .Signup(_authData['email']!, _authData['password']!);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
 
     return Card(
-      shape:RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      elevation: 8.0, 
+      elevation: 8.0,
       child: Container(
         height: _authMode == AuthMode.Signup ? 350 : 280,
         constraints:
@@ -179,16 +187,21 @@ class _AuthCardState extends State<AuthCard> {
                   CircularProgressIndicator()
                 else
                   ElevatedButton(
-                    child: Text(
-                        _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                    child:
+                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                     onPressed: _submit,
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
-                      ), backgroundColor: Theme.of(context).primaryColor,
-                      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                      ),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                       textStyle: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.labelLarge!.color,
+                        color: Theme.of(context)
+                            .primaryTextTheme
+                            .labelLarge!
+                            .color,
                       ),
                     ),
                   ),
@@ -207,8 +220,7 @@ class _AuthCardState extends State<AuthCard> {
                     }
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor:Colors.red,
-            
+                    foregroundColor: Colors.red,
                   ),
                 ),
               ],
@@ -216,9 +228,6 @@ class _AuthCardState extends State<AuthCard> {
           ),
         ),
       ),
-
     );
-    
   }
 }
-                    
