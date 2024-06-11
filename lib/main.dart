@@ -10,7 +10,7 @@ import './provider/order.dart';
 import './screens/order_screen.dart';
 import './screens/user_product_screen.dart';
 import './screens/edit_product_screen.dart';
-
+import './screens/auth_screen.dart';
 void main() {
   runApp(MyApp());
 }
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         title: 'Flutter Demo',
-        home: ProductsOverview(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routename: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),

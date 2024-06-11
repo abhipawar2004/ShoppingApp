@@ -1,4 +1,4 @@
-import 'dart:html';
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class AuthScreen extends StatelessWidget {
                       child: Text(
                         'MyShop',
                         style: TextStyle(
-                          color: Color(0xff2660a4),
+                          color: Colors.white,
                           fontSize: 50,
                           fontFamily: 'Anton',
                           fontWeight: FontWeight.normal,
@@ -121,96 +121,98 @@ class _AuthCardState extends State<AuthCard> {
       ),
       elevation: 8.0, 
       child: Container(
-        height: _authMode == AuthMode.Signup ? 320 : 260,
+        height: _authMode == AuthMode.Signup ? 350 : 280,
         constraints:
             BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'E-Mail'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value!.isEmpty || !value.contains('@')) {
-                    return 'Invalid email!';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _authData['email'] = value!;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                controller: _passwordController,
-                validator: (value) {
-                  if (value!.isEmpty || value.length < 5) {
-                    return 'Password is too short!';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _authData['password'] = value!;
-                },
-              ),
-              if (_authMode == AuthMode.Signup)
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
                 TextFormField(
-                  enabled: _authMode == AuthMode.Signup,
-                  decoration: InputDecoration(labelText: 'Confirm Password'),
-                  obscureText: true,
-                  validator: _authMode == AuthMode.Signup
-                      ? (value) {
-                          if (value != _passwordController.text) {
-                            return 'Passwords do not match!';
-                          }
-                          return null;
-                        }
-                      : null,
+                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isEmpty || !value.contains('@')) {
+                      return 'Invalid email!';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authData['email'] = value!;
+                  },
                 ),
-              SizedBox(
-                height: 20,
-              ),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                ElevatedButton(
-                  child: Text(
-                      _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
-                  onPressed: _submit,
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    primary: Theme.of(context).primaryColor,
-                    textStyle: TextStyle(
-                      color: Theme.of(context).primaryTextTheme.button!.color,
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 5) {
+                      return 'Password is too short!';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authData['password'] = value!;
+                  },
+                ),
+                if (_authMode == AuthMode.Signup)
+                  TextFormField(
+                    enabled: _authMode == AuthMode.Signup,
+                    decoration: InputDecoration(labelText: 'Confirm Password'),
+                    obscureText: true,
+                    validator: _authMode == AuthMode.Signup
+                        ? (value) {
+                            if (value != _passwordController.text) {
+                              return 'Passwords do not match!';
+                            }
+                            return null;
+                          }
+                        : null,
+                  ),
+                SizedBox(
+                  height: 20,
+                ),
+                if (_isLoading)
+                  CircularProgressIndicator()
+                else
+                  ElevatedButton(
+                    child: Text(
+                        _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                    onPressed: _submit,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ), backgroundColor: Theme.of(context).primaryColor,
+                      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                      textStyle: TextStyle(
+                        color: Theme.of(context).primaryTextTheme.labelLarge!.color,
+                      ),
                     ),
                   ),
+                TextButton(
+                  child: Text(
+                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                  onPressed: () {
+                    if (_authMode == AuthMode.Login) {
+                      setState(() {
+                        _authMode = AuthMode.Signup;
+                      });
+                    } else {
+                      setState(() {
+                        _authMode = AuthMode.Login;
+                      });
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor:Colors.red,
+            
+                  ),
                 ),
-              TextButton(
-                child: Text(
-                    '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                onPressed: () {
-                  if (_authMode == AuthMode.Login) {
-                    setState(() {
-                      _authMode = AuthMode.Signup;
-                    });
-                  } else {
-                    setState(() {
-                      _authMode = AuthMode.Login;
-                    });
-                  }
-                },
-                style: TextButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
