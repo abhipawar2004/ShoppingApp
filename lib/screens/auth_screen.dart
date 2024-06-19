@@ -47,7 +47,6 @@ class AuthScreen extends StatelessWidget {
                           vertical: 8.0, horizontal: 94.0),
                       transform: Matrix4.rotationZ(-8 * pi / 180)
                         ..translate(-10.0),
-                      // ..translate(-10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.deepOrange.shade900,
@@ -105,20 +104,20 @@ class _AuthCardState extends State<AuthCard> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('An error Occurred!'),
+        title: const Text('An error occurred!'),
         content: Text(message),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Okay'))
+              child: const Text('Okay'))
         ],
       ),
     );
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     if (_formKey.currentState != null && !_formKey.currentState!.validate()) {
       // Invalid!
       return;
@@ -130,29 +129,31 @@ class _AuthCardState extends State<AuthCard> {
     try {
       if (_authMode == AuthMode.Login) {
         // Log user in
-        Provider.of<Auth>(context)
-            .Login(_authData['email']!, _authData['passsword']!);
+        await Provider.of<Auth>(context, listen: false)
+            .Login(_authData['email']!, _authData['password']!);
       } else {
         // Sign user up
         await Provider.of<Auth>(context, listen: false)
             .Signup(_authData['email']!, _authData['password']!);
       }
+    
     } on HttpException catch (error) {
-      var errorMessage = 'Authenticate failed';
+      var errorMessage = 'Authentication failed';
       if (error.toString().contains('EMAIL_EXISTS')) {
         errorMessage = 'This email is already in use.';
       } else if (error.toString().contains('INVALID_EMAIL')) {
-        errorMessage = 'This is not a valid email adddress';
+        errorMessage = 'This is not a valid email address';
       } else if (error.toString().contains('WEAK_PASSWORD')) {
         errorMessage = 'This password is too weak';
       } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
-        errorMessage = 'Could not find a user wiith that email';
+        errorMessage = 'Could not find a user with that email';
       } else if (error.toString().contains('INVALID_PASSWORD')) {
-        errorMessage = 'Invalid Password';
+        errorMessage = 'Invalid password';
       }
       _showErrorDialog(errorMessage);
     } catch (error) {
-      var errorMessage = 'Could not authenticate you. Please try again later.';
+      const errorMessage = 'Could not authenticate you. Please try again later.';
+      _showErrorDialog(errorMessage);
     }
 
     setState(() {
@@ -160,6 +161,7 @@ class _AuthCardState extends State<AuthCard> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
 
@@ -250,15 +252,11 @@ class _AuthCardState extends State<AuthCard> {
                   child: Text(
                       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                   onPressed: () {
-                    if (_authMode == AuthMode.Login) {
-                      setState(() {
-                        _authMode = AuthMode.Signup;
-                      });
-                    } else {
-                      setState(() {
-                        _authMode = AuthMode.Login;
-                      });
-                    }
+                    setState(() {
+                      _authMode = _authMode == AuthMode.Login
+                          ? AuthMode.Signup
+                          : AuthMode.Login;
+                    });
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.red,

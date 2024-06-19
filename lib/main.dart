@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           title: 'Flutter Demo',
-          home: Auth().isAuth ? ProductsOverview() : AuthScreen(),
+          home: auth.isAuth ? ProductsOverview() :  AuthScreen(),
           routes: {
             ProductDetailScreen.routename: (context) => ProductDetailScreen(),
             CartScreen.routeName: (context) => CartScreen(),
