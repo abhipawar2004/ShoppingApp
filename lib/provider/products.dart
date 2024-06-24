@@ -48,6 +48,9 @@ class Products with ChangeNotifier {
     //         'https://cdn.pixabay.com/photo/2016/10/26/19/12/morning-1772286_1280.jpg'),
   ];
 
+  final String authToken;
+  Products(this.authToken,this._items); 
+
   List<Product> get items {
     return [..._items];
   }
@@ -61,8 +64,8 @@ class Products with ChangeNotifier {
   }
 
   Future<void> FetchDataAndUpdate() async {
-    const url =
-        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json';
+   final url =
+        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json?auth=$authToken';
     try {
       final response = await http.get(Uri.parse(url));
       final extractData = json.decode(response.body) as Map<String, dynamic>;
