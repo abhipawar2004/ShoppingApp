@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_learn/provider/auth.dart';
 import 'package:shopping_learn/provider/cart.dart';
 import 'package:shopping_learn/provider/product.dart';
 import 'package:shopping_learn/screens/product_detail.dart';
@@ -10,6 +11,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
@@ -24,23 +26,22 @@ class ProductItem extends StatelessWidget {
           leading: Consumer<Product>(
             builder: (context, value, _) => IconButton(
               onPressed: () {
-                product.toggleFavoriteStatus();
-                
+                product.toggleFavoriteStatus(authData.token);
 
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                product.isFavorite?
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Item added to Favorite ❤️'),
-                    duration: Duration(seconds: 2),
-                  ),
-                ):
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Item remove to Favorite ❤️'),
-                    duration: Duration(seconds: 2),
-                  ),);
-
+                product.isFavorite
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Item added to Favorite ❤️'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      )
+                    : ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Item remove to Favorite ❤️'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
               },
               icon: Icon(
                 product.isFavorite

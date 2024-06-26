@@ -29,14 +29,16 @@ class MyApp extends StatelessWidget {
           create: (context) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-        update: (context,auth,previousProducts) => Products(auth.token!,previousProducts==null ? [] : previousProducts.items),
+          create: (context) => Products('', []),
+          update: (context, auth, previousProducts) => Products(
+            auth.token!,
+            previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => Cart(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => Orders(),
-        ),
+        ChangeNotifierProxyProvider<Auth, Orders>(create: (context) => Orders('', []), update: (context, auth, previousOrders) => Orders(auth.token!,previousOrders == null ? []:previousOrders.orders),),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           title: 'Flutter Demo',
-          home: auth.isAuth ? ProductsOverview() :  AuthScreen(),
+          home: auth.isAuth ? ProductsOverview() : AuthScreen(),
           routes: {
             ProductDetailScreen.routename: (context) => ProductDetailScreen(),
             CartScreen.routeName: (context) => CartScreen(),

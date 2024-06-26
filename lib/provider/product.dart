@@ -18,9 +18,9 @@ class Product with ChangeNotifier {
       required this.imageUrl,
       this.isFavorite = false});
 
-  Future<void> toggleFavoriteStatus() async {
+  Future<void> toggleFavoriteStatus(String? token) async {
     final url =
-        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products/$id.json';
+        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
