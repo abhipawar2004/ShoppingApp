@@ -49,7 +49,8 @@ class Products with ChangeNotifier {
   ];
 
   final String authToken;
-  Products(this.authToken,this._items); 
+  final String userId;
+  Products(this.authToken, this.userId, this._items);
 
   List<Product> get items {
     return [..._items];
@@ -64,7 +65,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> FetchDataAndUpdate() async {
-   final url =
+    var url =
         'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json?auth=$authToken';
     try {
       final response = await http.get(Uri.parse(url));
@@ -72,6 +73,11 @@ class Products with ChangeNotifier {
       if (extractData == null) {
         return;
       }
+      url =
+          'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = http.get(Uri.parse(url));
+      final favotiteData = json.decode(response.body);
+
       final List<Product> loadedProduct = [];
       extractData.forEach((prodId, prodData) {
         loadedProduct.add(
@@ -80,6 +86,7 @@ class Products with ChangeNotifier {
             title: prodData['title'],
             description: prodData['description'],
             price: prodData['price'],
+            isFavorite:favotiteData==null ? false : favotiteData[prodId] ?? false,
             imageUrl: prodData['imageUrl'],
           ),
         );
