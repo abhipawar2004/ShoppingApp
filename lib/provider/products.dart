@@ -104,7 +104,7 @@ class Products with ChangeNotifier {
     try {
       final response = await http.post(
         Uri.parse(url),
-        body: jsonEncode(
+        body: json.encode(
           {
             'title': product.title,
             'description': product.description,
