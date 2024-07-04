@@ -64,36 +64,42 @@ class Products with ChangeNotifier {
     return _items.where((prodItems) => prodItems.isFavorite).toList();
   }
 
-  Future<void> FetchDataAndUpdate() async {
+  Future<void> FetchDataAndUpdate([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json?auth=$authToken';
+        'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json?auth=$authToken&$filterString';
+    ;
     try {
       final response = await http.get(Uri.parse(url));
       final extractData = json.decode(response.body) as Map<String, dynamic>;
       if (extractData == null) {
         return;
       }
+
       url =
           'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
-      final favoriteResponse = http.get(Uri.parse(url));
-      final favotiteData = json.decode(response.body);
+      final favoriteResponse = await http.get(Uri.parse(url));
+      final favoriteData = json.decode(favoriteResponse.body);
 
-      final List<Product> loadedProduct = [];
+      final List<Product> loadedProducts = [];
       extractData.forEach((prodId, prodData) {
-        loadedProduct.add(
+        loadedProducts.add(
           Product(
             id: prodId,
             title: prodData['title'],
             description: prodData['description'],
             price: prodData['price'],
-            isFavorite:favotiteData==null ? false : favotiteData[prodId] ?? false,
+            isFavorite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false,
             imageUrl: prodData['imageUrl'],
           ),
         );
       });
-      _items = loadedProduct;
+      _items = loadedProducts;
       notifyListeners();
     } catch (error) {
+      print('Error fetching data: $error');
       throw error;
     }
   }
@@ -110,6 +116,7 @@ class Products with ChangeNotifier {
             'description': product.description,
             'imageUrl': product.imageUrl,
             'price': product.price,
+            'creatorId': userId,
           },
         ),
       );
