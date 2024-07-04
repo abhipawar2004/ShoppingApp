@@ -15,7 +15,8 @@ class UserProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
+    print('Repeating...');
+    // final productData = Provider.of<Products>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Products'),
@@ -38,18 +39,20 @@ class UserProductScreen extends StatelessWidget {
                   )
                 : RefreshIndicator(
                     onRefresh: () => _refreshScreen(context),
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: ListView.builder(
-                        itemCount: productData.items.length,
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            UserProductItems(
-                                productData.items[index].id,
-                                productData.items[index].title,
-                                productData.items[index].imageUrl),
-                            Divider(),
-                          ],
+                    child: Consumer<Products>(
+                      builder: (context, productData, _) => Padding(
+                        padding: EdgeInsets.all(8),
+                        child: ListView.builder(
+                          itemCount: productData.items.length,
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              UserProductItems(
+                                  productData.items[index].id,
+                                  productData.items[index].title,
+                                  productData.items[index].imageUrl),
+                              Divider(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
