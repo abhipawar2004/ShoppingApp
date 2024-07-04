@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_learn/provider/auth.dart';
 
 import '../screens/order_screen.dart';
 import '../screens/user_product_screen.dart';
@@ -14,7 +16,6 @@ class AppDrawer extends StatelessWidget {
         AppBar(
           title: Text('Options'),
           automaticallyImplyLeading: false,
-          
         ),
         ListTile(
           leading: Icon(Icons.shop),
@@ -40,7 +41,14 @@ class AppDrawer extends StatelessWidget {
           },
         ),
         Divider(),
-
+        ListTile(
+          leading: Icon(Icons.exit_to_app),
+          title: Text('Logout'),
+          onTap: () {
+            Navigator.of(context).pop();
+            Provider.of<Auth>(context,listen: false).Logout();
+          },
+        ),
       ],
     ));
   }

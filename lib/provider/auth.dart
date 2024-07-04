@@ -93,5 +93,6 @@ class Auth with ChangeNotifier {
     _token = null;
     _userId = null;
     _expiryDate = null;
+    notifyListeners();
   }
 }

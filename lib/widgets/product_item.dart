@@ -26,7 +26,7 @@ class ProductItem extends StatelessWidget {
           leading: Consumer<Product>(
             builder: (context, value, _) => IconButton(
               onPressed: () {
-                product.toggleFavoriteStatus(authData.token, authData.userId);
+                product.toggleFavoriteStatus(authData.token!, authData.userId!);
 
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 product.isFavorite
