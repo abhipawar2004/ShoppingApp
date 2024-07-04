@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Auth with ChangeNotifier {
-  late String _token;
+  late String? _token;
   DateTime? _expiryDate;
-  late String _userId;
+  late String? _userId;
 
   bool get isAuth {
     return token != null;
   }
 
-  String get userId {
+  String? get userId {
     return _userId;
   }
 
@@ -87,5 +87,11 @@ class Auth with ChangeNotifier {
     } catch (error) {
       throw error;
     }
+  }
+
+  void Logout() {
+    _token = null;
+    _userId = null;
+    _expiryDate = null;
   }
 }
