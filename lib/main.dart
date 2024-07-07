@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import './provider/auth.dart';
 import './screens/splash_screen.dart';
 import './screens/product_detail.dart';
@@ -22,7 +21,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -65,13 +63,26 @@ class MyApp extends StatelessWidget {
             ),
           ),
           title: 'Flutter Demo',
-          home: auth.isAuth ? ProductsOverview(): FutureBuilder(future: auth.tryAutoLogin(), builder: (context, snapshot) => snapshot.connectionState==ConnectionState.waiting?SplashScreen(): AuthScreen()),
+          home: auth.isAuth
+              ? const ProductsOverview()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (context, authResultsnapshot) {
+                    if (authResultsnapshot.connectionState == ConnectionState.waiting) {
+                      return const SplashScreen();
+                    } else if (authResultsnapshot.data == true) {
+                      return const ProductsOverview();
+                    } else {
+                      return const AuthScreen();
+                    }
+                  },
+                ),
           routes: {
-            ProductDetailScreen.routename: (context) => ProductDetailScreen(),
-            CartScreen.routeName: (context) => CartScreen(),
-            OrderScreen.routeName: (context) => OrderScreen(),
-            UserProductScreen.routeName: (context) => UserProductScreen(),
-            EditProductScreen.routeName: (context) => EditProductScreen(),
+            ProductDetailScreen.routename: (context) => const ProductDetailScreen(),
+            CartScreen.routeName: (context) => const CartScreen(),
+            OrderScreen.routeName: (context) => const OrderScreen(),
+            UserProductScreen.routeName: (context) => const UserProductScreen(),
+            EditProductScreen.routeName: (context) => const EditProductScreen(),
           },
         ),
       ),

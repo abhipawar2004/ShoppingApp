@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +8,8 @@ import '../provider/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
+
+  const EditProductScreen({super.key});
 
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
@@ -87,7 +91,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
         await Provider.of<Products>(context, listen: false)
             .addProducts(_editedProduct);
       } catch (error) {
-        // ignore: use_build_context_synchronously
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(

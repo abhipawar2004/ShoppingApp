@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,14 +9,14 @@ import 'package:shopping_learn/widgets/product_item.dart';
 
 class ProductGrid extends StatelessWidget {
   final bool ShowFav;
-  ProductGrid(this.ShowFav);
+  const ProductGrid(this.ShowFav, {super.key});
   @override
   Widget build(BuildContext context) {
     final ProductData = Provider.of<Products>(context);
     final products = ShowFav?ProductData.FavoriteItems: ProductData.items;
 
     if (ShowFav && products.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'No favorite products yet!',
           style: TextStyle(fontSize: 20),
@@ -31,7 +33,7 @@ class ProductGrid extends StatelessWidget {
           mainAxisSpacing: 10),
       itemBuilder: (context, index) => ChangeNotifierProvider.value(
         value: products[index],
-        child: ProductItem(),
+        child: const ProductItem(),
       ),
     );
   }

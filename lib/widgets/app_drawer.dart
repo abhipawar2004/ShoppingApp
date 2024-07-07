@@ -14,39 +14,40 @@ class AppDrawer extends StatelessWidget {
         child: Column(
       children: [
         AppBar(
-          title: Text('Options'),
+          title: const Text('Options'),
           automaticallyImplyLeading: false,
         ),
         ListTile(
-          leading: Icon(Icons.shop),
-          title: Text('Shop'),
+          leading: const Icon(Icons.shop),
+          title: const Text('Shop'),
           onTap: () {
             Navigator.of(context).pushNamed('/');
           },
         ),
-        Divider(),
+        const Divider(),
         ListTile(
-          leading: Icon(Icons.payment),
-          title: Text('Payment'),
+          leading: const Icon(Icons.payment),
+          title: const Text('Payment'),
           onTap: () {
             Navigator.of(context).pushNamed(OrderScreen.routeName);
           },
         ),
-        Divider(),
+        const Divider(),
         ListTile(
-          leading: Icon(Icons.edit),
-          title: Text('Manage Product'),
+          leading: const Icon(Icons.edit),
+          title: const Text('Manage Product'),
           onTap: () {
             Navigator.of(context).pushNamed(UserProductScreen.routeName);
           },
         ),
-        Divider(),
+        const Divider(),
         ListTile(
-          leading: Icon(Icons.exit_to_app),
-          title: Text('Logout'),
+          leading: const Icon(Icons.exit_to_app),
+          title: const Text('Logout'),
           onTap: () {
             Navigator.of(context).pop();
-            Provider.of<Auth>(context,listen: false).logout();
+            Navigator.of(context).pushReplacementNamed('/');
+            Provider.of<Auth>(context, listen: false).logout();
           },
         ),
       ],

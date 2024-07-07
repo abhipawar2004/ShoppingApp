@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import '../provider/order.dart' as ord;
 
 class OrderItems extends StatefulWidget {
   final ord.OrderItems order;
-  OrderItems(this.order);
+  const OrderItems(this.order, {super.key});
 
   @override
   State<OrderItems> createState() => _OrderItemsState();
@@ -19,7 +21,7 @@ class _OrderItemsState extends State<OrderItems> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
           ListTile(
@@ -37,15 +39,15 @@ class _OrderItemsState extends State<OrderItems> {
           ),
           if (_expanded)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 18,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 10),
               height: min(widget.order.products.length * 20.0 + 50, 180),
               child: ListView(
                 children: widget.order.products.map(
                   (prod) => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(prod.title,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
-                      Text('${prod.quantity}x \$${prod.price}',style: TextStyle(fontSize: 15,color: Colors.grey),),
+                      Text(prod.title,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                      Text('${prod.quantity}x \$${prod.price}',style: const TextStyle(fontSize: 15,color: Colors.grey),),
                     ],
                   ),
                 ).toList(), 

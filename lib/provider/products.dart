@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -69,13 +71,9 @@ class Products with ChangeNotifier {
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
         'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/products.json?auth=$authToken&$filterString';
-    ;
     try {
       final response = await http.get(Uri.parse(url));
       final extractData = json.decode(response.body) as Map<String, dynamic>;
-      if (extractData == null) {
-        return;
-      }
 
       url =
           'https://shoppingapp-c0d6f-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
@@ -99,6 +97,7 @@ class Products with ChangeNotifier {
       _items = loadedProducts;
       notifyListeners();
     } catch (error) {
+      // ignore: avoid_print
       print('Error fetching data: $error');
       rethrow;
     }
@@ -130,6 +129,7 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
       notifyListeners();
     } catch (error) {
+      // ignore: avoid_print
       print(error);
       rethrow;
     }
@@ -150,6 +150,7 @@ class Products with ChangeNotifier {
       _items[prodind] = newProduct;
       notifyListeners();
     } else {
+      // ignore: avoid_print
       print('....');
     }
   }
@@ -165,7 +166,7 @@ class Products with ChangeNotifier {
     if (response.statusCode >= 400) {
       _items.insert(existingProductIndex, existingProduct);
       notifyListeners();
-      throw HttpException('Could not delete product.');
+      throw const HttpException('Could not delete product.');
     }
     existingProduct = null;
   }

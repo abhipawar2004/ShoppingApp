@@ -9,6 +9,8 @@ import '../widgets/app_drawer.dart';
 import '../provider/products.dart';
 
 class ProductsOverview extends StatefulWidget {
+  const ProductsOverview({super.key});
+
   @override
   State<ProductsOverview> createState() => _ProductsOverviewState();
 }
@@ -38,7 +40,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Text('APNI DUKAN'),
+        title: const Text('APNI DUKAN'),
         actions: [
           IconButton(
             onPressed: () {
@@ -56,7 +58,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
             builder: (_, cart, child) =>
                 Badge.count(count: cart.CountItem, child: child),
             child: IconButton(
-              icon: Icon(Icons.shopping_cart),
+              icon: const Icon(Icons.shopping_cart),
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
               },
@@ -64,9 +66,9 @@ class _ProductsOverviewState extends State<ProductsOverview> {
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ProductGrid(_showOnlyFavorite),

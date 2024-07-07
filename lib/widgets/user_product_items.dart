@@ -8,7 +8,7 @@ class UserProductItems extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
-  UserProductItems(this.id, this.title, this.imageUrl);
+  const UserProductItems(this.id, this.title, this.imageUrl, {super.key});
   @override
   Widget build(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -17,7 +17,7 @@ class UserProductItems extends StatelessWidget {
       leading: CircleAvatar(
         backgroundImage: NetworkImage(imageUrl),
       ),
-      trailing: Container(
+      trailing: SizedBox(
         width: 100,
         child: Row(children: [
           IconButton(
@@ -25,20 +25,20 @@ class UserProductItems extends StatelessWidget {
               Navigator.of(context)
                   .pushNamed(EditProductScreen.routeName, arguments: id);
             },
-            icon: Icon(Icons.edit, color: Color.fromARGB(255, 12, 78, 129)),
+            icon: const Icon(Icons.edit, color: Color.fromARGB(255, 12, 78, 129)),
           ),
           IconButton(
             onPressed: () async {
               try {
                 await Provider.of<Products>(context, listen: false)
                     .deleteProduct(id);
-                    scaffold.showSnackBar(SnackBar(content: Text('Item deleted',textAlign: TextAlign.center,style: TextStyle(color: Colors.red)),backgroundColor: Colors.white,));
+                    scaffold.showSnackBar(const SnackBar(content: Text('Item deleted',textAlign: TextAlign.center,style: TextStyle(color: Colors.red)),backgroundColor: Colors.white,));
               } catch (error) {
                 
-                    scaffold.showSnackBar(SnackBar(content: Text('Deleting Failed',textAlign: TextAlign.center,)));
+                    scaffold.showSnackBar(const SnackBar(content: Text('Deleting Failed',textAlign: TextAlign.center,)));
               }
             },
-            icon: Icon(Icons.delete, color: Colors.red),
+            icon: const Icon(Icons.delete, color: Colors.red),
           ),
         ]),
       ),

@@ -8,6 +8,8 @@ import '../screens/edit_product_screen.dart';
 
 class UserProductScreen extends StatelessWidget {
   static const routeName = "/userScreen";
+
+  const UserProductScreen({super.key});
   Future<void> _refreshScreen(BuildContext context) async {
     await Provider.of<Products>(context, listen: false)
         .FetchDataAndUpdate(true);
@@ -15,33 +17,32 @@ class UserProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Repeating...');
     // final productData = Provider.of<Products>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Products'),
+        title: const Text('Your Products'),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context).pushNamed(EditProductScreen.routeName);
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: FutureBuilder(
         future: _refreshScreen(context),
         builder: (context, snapshot) =>
             snapshot.connectionState == ConnectionState.waiting
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : RefreshIndicator(
                     onRefresh: () => _refreshScreen(context),
                     child: Consumer<Products>(
                       builder: (context, productData, _) => Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: ListView.builder(
                           itemCount: productData.items.length,
                           itemBuilder: (context, index) => Column(
@@ -50,7 +51,7 @@ class UserProductScreen extends StatelessWidget {
                                   productData.items[index].id,
                                   productData.items[index].title,
                                   productData.items[index].imageUrl),
-                              Divider(),
+                              const Divider(),
                             ],
                           ),
                         ),

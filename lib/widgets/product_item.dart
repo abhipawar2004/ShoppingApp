@@ -16,12 +16,6 @@ class ProductItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: GridTile(
-        child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(ProductDetailScreen.routename,
-                  arguments: product.id);
-            },
-            child: Image.network(product.imageUrl, fit: BoxFit.cover)),
         footer: GridTileBar(
           leading: Consumer<Product>(
             builder: (context, value, _) => IconButton(
@@ -31,13 +25,13 @@ class ProductItem extends StatelessWidget {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 product.isFavorite
                     ? ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Item added to Favorite ❤️'),
                           duration: Duration(seconds: 2),
                         ),
                       )
                     : ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Item remove to Favorite ❤️'),
                           duration: Duration(seconds: 2),
                         ),
@@ -59,8 +53,8 @@ class ProductItem extends StatelessWidget {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Added items to the cart 🛒'),
-                  duration: Duration(seconds: 2),
+                  content: const Text('Added items to the cart 🛒'),
+                  duration: const Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'undo',
                     onPressed: () {
@@ -70,12 +64,18 @@ class ProductItem extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.shopping_cart_outlined,
               color: Colors.blueAccent,
             ),
           ),
         ),
+        child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(ProductDetailScreen.routename,
+                  arguments: product.id);
+            },
+            child: Image.network(product.imageUrl, fit: BoxFit.cover)),
       ),
     );
   }
