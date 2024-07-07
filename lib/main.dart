@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_learn/provider/auth.dart';
 
+
+import './provider/auth.dart';
+import './screens/splash_screen.dart';
 import './screens/product_detail.dart';
 import './screens/products_overview.dart';
 import './provider/products.dart';
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           title: 'Flutter Demo',
-          home: auth.isAuth ? ProductsOverview() : AuthScreen(),
+          home: auth.isAuth ? ProductsOverview(): FutureBuilder(future: auth.tryAutoLogin(), builder: (context, snapshot) => snapshot.connectionState==ConnectionState.waiting?SplashScreen(): AuthScreen()),
           routes: {
             ProductDetailScreen.routename: (context) => ProductDetailScreen(),
             CartScreen.routeName: (context) => CartScreen(),

@@ -108,10 +108,19 @@ class Auth with ChangeNotifier {
     if (!perfs.containsKey('userData')) {
       return false;
     }
-    
+
     final extractUserData =
         json.decode(perfs.getString('userData')!) as Map<String, Object>;
-    final expiryDate = DateTime.parse(extractUserData['expiryDate']); 
+    final expiryDate = DateTime.parse(extractUserData['expiryDate'] as String);
+    if (expiryDate.isBefore(DateTime.now())) {
+      return false;
+    }
+    _token = extractUserData['token'] as String;
+    _userId = extractUserData['userId'] as String;
+    _expiryDate = expiryDate;
+    notifyListeners();
+    _autoLogout();
+    return true;
   }
 
   void logout() {
