@@ -9,41 +9,44 @@ import 'order_screen.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/Cart';
 
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
       ),
       body: Column(
         children: [
           Card(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Chip(
                     label: Text('\$${cart.TotalAmount}',
-                        style: TextStyle(color: Colors.white)),
-                    backgroundColor: Color(0xff2660a4),
+                        style: const TextStyle(color: Colors.white)),
+                    backgroundColor: const Color(0xff2660a4),
                   ),
                   cart.TotalAmount>0?
                   TextButton(
                     onPressed: () async{
                      await   Provider.of<Orders>(context,listen: false).addOrders(
                           cart.items.values.toList(), cart.TotalAmount);
+                          // ignore: use_build_context_synchronously
                           Navigator.of(context).pushNamed(OrderScreen.routeName);
                       cart.clear(); 
                     },
-                    child: Text(
+                    child: const Text(
                       'ORDER NOW',
                       style: TextStyle(
                         color: Color(0xff2660a4),
@@ -55,7 +58,7 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
                 itemBuilder: (context, i) => CartItems(

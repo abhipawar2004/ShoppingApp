@@ -230,8 +230,6 @@ class _AuthCardState extends State<AuthCard> {
                   const CircularProgressIndicator()
                 else
                   ElevatedButton(
-                    child:
-                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                     onPressed: _submit,
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -247,10 +245,10 @@ class _AuthCardState extends State<AuthCard> {
                             .color,
                       ),
                     ),
+                    child:
+                        Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
                   ),
                 TextButton(
-                  child: Text(
-                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                   onPressed: () {
                     setState(() {
                       _authMode = _authMode == AuthMode.Login
@@ -261,6 +259,8 @@ class _AuthCardState extends State<AuthCard> {
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.red,
                   ),
+                  child: Text(
+                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                 ),
               ],
             ),

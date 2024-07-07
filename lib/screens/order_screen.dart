@@ -8,6 +8,8 @@ import '../widgets/app_drawer.dart';
 class OrderScreen extends StatefulWidget {
   static const routeName = '/Order';
 
+  const OrderScreen({super.key});
+
   @override
   State<OrderScreen> createState() => _OrderScreenState();
 }
@@ -30,14 +32,15 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     final OrderData = Provider.of<Orders>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Order'),
+        title: const Text('Your Order'),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: _isloading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(

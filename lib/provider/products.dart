@@ -100,7 +100,7 @@ class Products with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print('Error fetching data: $error');
-      throw error;
+      rethrow;
     }
   }
 
@@ -131,7 +131,7 @@ class Products with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print(error);
-      throw error;
+      rethrow;
     }
   }
 
