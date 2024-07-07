@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_learn/provider/auth.dart';
 
-import './provider/auth.dart';
-import './screens/splash_screen.dart';
 import './screens/product_detail.dart';
 import './screens/products_overview.dart';
 import './provider/products.dart';
@@ -13,6 +12,7 @@ import './screens/order_screen.dart';
 import './screens/user_product_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -64,25 +65,21 @@ class MyApp extends StatelessWidget {
           ),
           title: 'Flutter Demo',
           home: auth.isAuth
-              ? const ProductsOverview()
+              ? ProductsOverview()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
-                  builder: (context, authResultsnapshot) {
-                    if (authResultsnapshot.connectionState == ConnectionState.waiting) {
-                      return const SplashScreen();
-                    } else if (authResultsnapshot.data == true) {
-                      return const ProductsOverview();
-                    } else {
-                      return const AuthScreen();
-                    }
-                  },
+                  builder: (context, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen(),
                 ),
           routes: {
-            ProductDetailScreen.routename: (context) => const ProductDetailScreen(),
-            CartScreen.routeName: (context) => const CartScreen(),
-            OrderScreen.routeName: (context) => const OrderScreen(),
-            UserProductScreen.routeName: (context) => const UserProductScreen(),
-            EditProductScreen.routeName: (context) => const EditProductScreen(),
+            ProductDetailScreen.routename: (context) => ProductDetailScreen(),
+            CartScreen.routeName: (context) => CartScreen(),
+            OrderScreen.routeName: (context) => OrderScreen(),
+            UserProductScreen.routeName: (context) => UserProductScreen(),
+            EditProductScreen.routeName: (context) => EditProductScreen(),
           },
         ),
       ),
